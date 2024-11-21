@@ -217,30 +217,6 @@ def save_pincode_route():
     else:
         return jsonify({"success": False, "message": "No PIN code provided."}), 400
     
-from playsound import playsound
-
-@app.route('/playAudio', methods=['POST'], endpoint='play_audio')
-@token_required
-def play_audio_route():
-    number = request.json.get('number')
-    audio_files = {
-        1: '/home/pi/Desktop/firebase/Audio/Hello.mp3',
-        2: '/home/pi/Desktop/firebase/Audio/Hello.mp3',
-        3: '/home/pi/Desktop/firebase/Audio/Hello.mp3',
-        4: '/home/pi/Desktop/firebase/Audio/Hello.mp3'
-    }
-    
-    if number in audio_files:
-        audio_file = audio_files[number]
-        try:
-            playsound(audio_file)
-            return jsonify({"success": True, "message": f"Played audio file {number}."}), 200
-        except Exception as e:
-            print(f"Error playing audio: {e}")
-            return jsonify({"success": False, "message": "Failed to play audio file."}), 500
-    else:
-        return jsonify({"success": False, "message": "Invalid audio number."}), 400
-
 def capture_frames():
     stream = io.BytesIO()
     try:

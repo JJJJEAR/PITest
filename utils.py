@@ -75,3 +75,10 @@ def augment_image(image):
     augmented_images.append(scaled_resized)
     
     return augmented_images
+
+def detect_screen_glare(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    _, thresh = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY)
+    reflection_ratio = np.sum(thresh) / (thresh.shape[0] * thresh.shape[1])
+    return reflection_ratio > 0.1  
+
